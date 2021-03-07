@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="fc_no_resources_have_been_add_in_wishlist" version_id="900" version_string="0.9.0"><![CDATA[no resources have been add in wishlist]]></phrase>
+  <phrase title="fc_resource_wishlist" version_id="900" version_string="0.9.0"><![CDATA[Resource Wishlist]]></phrase>
+  <phrase title="fc_unwishlist" version_id="900" version_string="0.9.0"><![CDATA[Unwishlist]]></phrase>
+  <phrase title="fc_wishlist" version_id="900" version_string="0.9.0"><![CDATA[Wishlist]]></phrase>
+  <phrase title="fc_wishlist_resource" version_id="900" version_string="0.9.0"><![CDATA[Wishlist Resource]]></phrase>
+  <phrase title="nav.wishlistResources" version_id="900" version_string="0.9.0"><![CDATA[Wishlist Resources]]></phrase>
+  <phrase title="permission.resource_wishlistPermission" version_id="900" version_string="0.9.0"><![CDATA[Can use Resource Wishlist]]></phrase>
+</phrases>

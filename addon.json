@@ -1,0 +1,30 @@
+{
+    "legacy_addon_id": "",
+    "title": "[NICK97] XFRM Wishlist",
+    "description": "Target your resource you want to purchase by adding it into Resource wishlist.",
+    "version_id": 2020071,
+    "version_string": "2.2.0",
+    "dev": "NICK97",
+    "dev_url": "https://xen-shop.com",
+    "faq_url": "",
+    "support_url": "https://cities-mods.com/forums/supports.224/",
+    "extra_urls": {
+        "Gaming Community": "https://cities-mods.com",
+        "Donate": "https://www.cities-mods.com/donate/"
+    },
+    "require": {
+        "XF": [
+            2020070,
+            "XenForo 2.2.0+"
+        ],
+        "XFRM": [
+            2010470,
+            "XenForo Resource Manager 2.1.4+"
+        ],
+        "php": [
+            "5.4.0",
+            "PHP 5.4.0+"
+        ]
+    },
+    "icon": "fa-cart-arrow-down"
+}

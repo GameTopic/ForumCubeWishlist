@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation>
+  <navigation_entry navigation_id="wishlistResources" parent_navigation_id="xfrm" display_order="500" navigation_type_id="basic" enabled="1"><![CDATA[{"link":"{{link('resource\/wishlist') }}","display_condition":"","extra_attributes":[]}]]></navigation_entry>
+</navigation>

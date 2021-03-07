@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="public" title="fc_resource_view_add_wishlist" version_id="900" version_string="0.9.0"><![CDATA[<xf:if is="$resource.hasPermission('wishlistPermission')">
+	<xf:set var="$wishlist" value="{{$resource.getUserWishlist()}}" />
+		<xf:if is="{{$wishlist}}">
+			<a href="{{ link('resource/wishlist/remove', $wishlist, {'resourceId': $resource.resource_id, 'viewPage': true}) }}">{{ phrase('fc_unwishlist')}}</a>
+		<xf:else/>
+		<a href="{{ link('resource/wishlist/add', '' , {'resourceId': $resource.resource_id , 'viewPage': true}  ) }}">{{ phrase('fc_wishlist')}}</a>
+		</xf:if>
+</xf:if>]]></template>
+  <template type="public" title="fc_wishlist_add_resource_link" version_id="900" version_string="0.9.0"><![CDATA[<xf:if is="$resource.hasPermission('wishlistPermission')">
+	<ul class="structItem-extraInfo">
+		<xf:if is="{$user}">
+			<xf:set var="$wishlist" value="{$resource.getUserWishlist($user)}" />
+			<li><a href="{{ link('resource/wishlist/remove', $wishlist , {'userId':$user.user_id}) }}">{{ phrase('fc_unwishlist')}}</a></li>
+		<xf:elseif is="$wishlistPage"/>
+				<xf:set var="$wishlist" value="{{$resource.getUserWishlist()}}" />
+			<li><a href="{{ link('resource/wishlist/remove', $wishlist, {'wishlistPage': true}) }}">{{ phrase('fc_unwishlist')}}</a></li>
+		<xf:else />
+			<xf:set var="$wishlist" value="{{$resource.getUserWishlist()}}" />
+			<xf:if is="$wishlist">
+				<li><a href="{{ link('resource/wishlist/remove', $wishlist) }}">{{ phrase('fc_unwishlist')}}</a></li>
+			<xf:else/>
+				<li><a href="{{ link('resource/wishlist/add', '' , {'resourceId': $resource.resource_id}) }}">{{ phrase('fc_wishlist')}}</a></li>
+			</xf:if>
+		</xf:if>
+	</ul>
+</xf:if>]]></template>
+  <template type="public" title="fc_wishlist_in_member" version_id="900" version_string="0.9.0"><![CDATA[<xf:macro template="xfrm_overview_macros" name="featured_carousel"
+	arg-featuredResources="{$featuredResources}"
+	arg-viewAllLink="{{ link('resources/featured') }}" />
+<xf:if is="$canInlineMod">
+	<xf:js src="xf/inline_mod.js" min="1" />
+</xf:if>
+
+<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="resource" data-href="{{ link('inline-mod') }}">
+	<div class="block-outer"><xf:trim>
+
+		<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
+			link="resources" params="{$filters}"
+			wrapperclass="block-outer-main" />
+
+		<xf:if contentcheck="true">
+			<div class="block-outer-opposite">
+				<div class="buttonGroup">
+				<xf:contentcheck>
+					<xf:if is="$canInlineMod">
+						<xf:macro template="inline_mod_macros" name="button" />
+					</xf:if>
+				</xf:contentcheck>
+				</div>
+			</div>
+		</xf:if>
+
+	</xf:trim></div>
+
+	<div class="block-container">
+		<xf:macro template="xfrm_overview_macros" name="list_filter_bar"
+			arg-filters="{$filters}"
+			arg-baseLinkPath="resources"
+			arg-creatorFilter="{$creatorFilter}" />
+
+		<div class="block-body">
+			<xf:if is="$resources is not empty">
+				<div class="structItemContainer">
+					<xf:foreach loop="$resources" value="$resource">
+						<xf:macro template="xfrm_resource_list_macros" name="resource"
+							arg-filterPrefix="{{ true }}"
+							arg-resource="{$resource}"
+							arg-user="{$user}"/>
+					</xf:foreach>
+				</div>
+			<xf:elseif is="$filters" />
+				<div class="block-row">{{ phrase('xfrm_there_no_resources_matching_your_filters') }}</div>
+			<xf:else />
+				<div class="block-row">{{ phrase('xfrm_no_resources_have_been_created_yet') }}</div>
+			</xf:if>
+		</div>
+	</div>
+
+	<div class="block-outer block-outer--after">
+		<xf:pagenav
+			page="{$page}" perpage="{$perPage}" total="{$total}"
+			link="resources" params="{$filters}"
+			wrapperclass="block-outer-main" />
+		<xf:showignored wrapperclass="block-outer-opposite" />
+	</div>
+</div>]]></template>
+  <template type="public" title="fc_wishlist_overview" version_id="900" version_string="0.9.0"><![CDATA[<xf:title page="{$page}">{{ phrase('fc_wishlist_resource') }}</xf:title>
+
+<xf:macro template="metadata_macros" name="canonical_url"
+	arg-canonicalUrl="{{ link('canonical:resources', null, {'page': $page}) }}" />
+
+<xf:page option="searchConstraints" value="{{ {
+	phrase('xfrm_resources'): {'search_type': 'resource'}
+} }}" />
+
+<xf:pageaction if="$xf.visitor.canAddResource()">
+	<xf:button href="{{ link('resources/add') }}" class="button--cta" icon="write" overlay="true">{{ phrase('xfrm_add_resource...') }}</xf:button>
+</xf:pageaction>
+
+<xf:macro template="xfrm_overview_macros" name="featured_carousel"
+	arg-featuredResources="{$featuredResources}"
+	arg-viewAllLink="{{ link('resources/featured') }}" />
+
+<xf:if is="$canInlineMod">
+	<xf:js src="xf/inline_mod.js" min="1" />
+</xf:if>
+
+<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="resource" data-href="{{ link('inline-mod') }}">
+	<div class="block-outer"><xf:trim>
+
+		<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
+			link="resources" params="{$filters}"
+			wrapperclass="block-outer-main" />
+
+		<xf:if contentcheck="true">
+			<div class="block-outer-opposite">
+				<div class="buttonGroup">
+				<xf:contentcheck>
+					<xf:if is="$canInlineMod">
+						<xf:macro template="inline_mod_macros" name="button" />
+					</xf:if>
+				</xf:contentcheck>
+				</div>
+			</div>
+		</xf:if>
+
+	</xf:trim></div>
+
+	<div class="block-container">
+		<xf:macro template="xfrm_overview_macros" name="list_filter_bar"
+			arg-filters="{$filters}"
+			arg-baseLinkPath="resources"
+			arg-creatorFilter="{$creatorFilter}" />
+
+		<div class="block-body">
+			<xf:if is="$resources is not empty">
+				<div class="structItemContainer">
+					<xf:foreach loop="$resources" value="$resource">
+						<xf:macro template="xfrm_resource_list_macros" name="resource"
+							arg-filterPrefix="{{ true }}"
+							arg-resource="{$resource}"
+							arg-wishlistPage = "{{true}}"	  
+								  />
+					</xf:foreach>
+				</div>
+			<xf:elseif is="$filters" />
+				<div class="block-row">{{ phrase('xfrm_there_no_resources_matching_your_filters') }}</div>
+			<xf:else />
+				<div class="block-row">{{ phrase('fc_no_resources_have_been_add_in_wishlist') }}</div>
+			</xf:if>
+		</div>
+	</div>
+
+	<div class="block-outer block-outer--after">
+		<xf:pagenav
+			page="{$page}" perpage="{$perPage}" total="{$total}"
+			link="resources" params="{$filters}"
+			wrapperclass="block-outer-main" />
+		<xf:showignored wrapperclass="block-outer-opposite" />
+	</div>
+</div>
+
+<xf:page option="sideNavTitle">{{ phrase('categories') }}</xf:page>
+<xf:sidenav>
+	<xf:macro template="xfrm_category_list_macros" name="simple_list_block"
+		arg-categoryTree="{$categoryTree}"
+		arg-categoryExtras="{$categoryExtras}" />
+</xf:sidenav>
+
+<xf:widgetpos id="xfrm_overview_sidenav" position="sidenav" />]]></template>
+</templates>
